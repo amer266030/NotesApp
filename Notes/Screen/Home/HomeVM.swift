@@ -6,6 +6,7 @@
 //
 
 import Observation
+import Foundation
 
 @Observable
 class HomeVM {
@@ -25,7 +26,14 @@ class HomeVM {
     }
     
     func delete(_ note: Note) {
-        
+        do {
+            guard let idx = notes.firstIndex(of: note) else {
+                throw NSError()
+            }
+            notes.remove(at: idx)
+        } catch {
+            print("Failed to delete note")
+        }
     }
     
 }

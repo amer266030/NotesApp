@@ -16,37 +16,21 @@ struct HomeView: View {
                 // Main content
                 ZStack(alignment: .topLeading) {
                     ContainerRelativeShape()
-                        .fill(.white.gradient)
+                        .fill(.background.gradient)
                         .ignoresSafeArea()
                     
                     VStack(alignment: .leading, spacing: 16) {
-                        // Your main content
-                        List {
-                            ForEach(NoteCategory.allCases) { cat in
-                                Section(header: Text(cat.rawValue)) {
-                                    ForEach(vm.filterNotesByCategory(cat)) { note in
-                                        listItem(cat: cat, note: note)
-                                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                                NavigationLink {
-                                                    AddNoteView()
-                                                } label: {
-                                                    Text("Edit")
-                                                }
-                                                .tint(.blue)
-                                                
-                                                Button("Delete") {
-                                                    vm.delete(note)
-                                                }
-                                                .tint(.red)
-                                            }
-                                    }
-                                }
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
-                            }
-                        }
-                        .listStyle(.plain)
+                        Text("My Notes")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.text)
                         
+                        if vm.notes.isEmpty {
+                            ContentUnavailableView("No Notes", systemImage: "exclamationmark.triangle.fill", description: Text("You haven't added any notes yet!"))
+                                .foregroundStyle(.text)
+                        } else {
+                            listView(vm)
+                        }
                     }
                     .padding(16)
                 }
@@ -86,6 +70,34 @@ struct HomeView: View {
     }
 }
 
+fileprivate func listView(_ vm: HomeVM) -> some View {
+    List {
+        ForEach(NoteCategory.allCases) { cat in
+            Section(header: Text(cat.rawValue)) {
+                ForEach(vm.filterNotesByCategory(cat)) { note in
+                    listItem(cat: cat, note: note)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            NavigationLink {
+                                AddNoteView()
+                            } label: {
+                                Text("Edit")
+                            }
+                            .tint(.blue)
+                            
+                            Button("Delete") {
+                                vm.delete(note)
+                            }
+                            .tint(.red)
+                        }
+                }
+            }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+        }
+    }
+    .listStyle(.plain)
+}
+
 fileprivate func listItem(cat: NoteCategory, note: Note) -> some View {
     HStack {
         Image(systemName: cat.img)
@@ -94,10 +106,12 @@ fileprivate func listItem(cat: NoteCategory, note: Note) -> some View {
             .foregroundStyle(cat.color)
         
         Text(note.title ?? "")
+            .foregroundStyle(.text)
         
         Spacer()
         
         Text(note.createdAt.formatted(date: .abbreviated, time: .shortened))
+            .foregroundStyle(.text)
     }
     .font(.caption)
     .fontWidth(.condensed)
@@ -105,8 +119,8 @@ fileprivate func listItem(cat: NoteCategory, note: Note) -> some View {
     .background {
         RoundedRectangle(cornerRadius: 8)
             .fill(
-                Color.white
-                    .shadow(.drop(color: .black.opacity(0.2), radius: 2, x: 2, y: 2))
+                Color.background
+                    .shadow(.drop(color: .text.opacity(0.2), radius: 2, x: 2, y: 2))
             )
     }
 }
