@@ -11,11 +11,14 @@ import Foundation
 @Observable
 class HomeVM {
     var notes: [Note] = []
+    var filteredNotes: [(NoteCategory, [Note])] {
+        Dictionary(grouping: notes, by: { $0.category })
+            .map { ($0.key, $0.value) }
+            .sorted { $0.0.sortPriority < $1.0.sortPriority }
+    }
     var showDrawer = false
     
-    init() {
-        fetchNotes()
-    }
+    init() { }
     
     func fetchNotes() {
         notes = MockData.shared.notes

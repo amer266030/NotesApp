@@ -8,32 +8,33 @@
 import SwiftUI
 
 struct AddNoteView: View {
-    @Bindable var vm = AddNoteVM()
+    @Bindable var vm: AddNoteVM
+    var note: Note?
+    
+    init(_ note: Note? = nil) {
+        vm = AddNoteVM(note)
+    }
     
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack {
             ContainerRelativeShape()
                 .fill(.background.gradient)
                 .ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    Text("Server Time:")
-                    Spacer()
-                    Text(vm.serverTime?.datetime ?? "Loading...")
-                }
-                .font(.caption)
+                FormView(vm: vm)
             }
             .fontWidth(.condensed)
             .foregroundStyle(.text)
             .padding()
         }
-        .task {
-            try? await vm.fetchTime()
-        }
     }
 }
 
 #Preview {
-    AddNoteView()
+    NavigationStack {
+        AddNoteView()
+            .navigationTitle("New Note")
+            .navigationBarTitleDisplayMode(.large)
+    }
 }

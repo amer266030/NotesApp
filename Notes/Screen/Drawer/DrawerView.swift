@@ -12,7 +12,7 @@ struct DrawerView: View {
         HStack {
             ZStack(alignment: .topLeading) {
                 ContainerRelativeShape()
-                    .fill(.gray.gradient)
+                    .fill(.background.gradient)
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading, spacing: 24) {
@@ -31,6 +31,7 @@ struct DrawerView: View {
                     NavigationLink {
                         AddNoteView()
                             .navigationTitle("Add Note")
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         linkItem(img: "note.text.badge.plus", title: "New Note")
                     }
@@ -58,11 +59,11 @@ fileprivate func avatarView() -> some View {
             .blendMode(.overlay)
             .aspectRatio(contentMode: .fit)
             .padding(32)
-            .background(.white.opacity(0.5), in: Circle())
+            .background(.gray.gradient.opacity(0.1), in: Circle())
             .background(
                 Circle()
                     .fill(Color.white.opacity(0.5)
-                        .shadow(.drop(radius: 10, x: 0, y: 10))
+                        .shadow(.drop(radius: 4, x: 0, y: 4))
                     )
             )
             .padding(.horizontal, 32)
@@ -79,14 +80,15 @@ fileprivate func avatarView() -> some View {
 fileprivate func linkItem(img: String, title: String) -> some View {
     HStack {
         Image(systemName: img)
-            .symbolEffect(.pulse, options: .repeat(.periodic(delay: 5)))
+            .symbolEffect(.wiggle, options: .repeat(.periodic(delay: 5)))
             .frame(minWidth: 25, minHeight: 25)
-            .foregroundStyle(.black)
+            .foregroundStyle(Color.background)
             .padding(4)
-            .background(.white.gradient, in: .rect(cornerRadius: 8))
+            .background(.blue.gradient, in: .rect(cornerRadius: 8))
         
         Text(title)
-            .foregroundStyle(.white)
+            .foregroundStyle(.text)
+            .contentTransition(.numericText())
     }
     .font(.headline)
 }

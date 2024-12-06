@@ -12,6 +12,17 @@ enum NoteCategory: String, Identifiable, CaseIterable, Codable {
     
     var id: String { rawValue }
     
+    var sortPriority: Int {
+        switch self {
+        case .Work:
+            1
+        case .Personal:
+            2
+        case .Other:
+            3
+        }
+    }
+    
     var img: String {
         switch self {
         case .Work:
