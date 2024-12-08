@@ -12,7 +12,7 @@ import Observation
 class PopupMgr {
     static let shared = PopupMgr()
     
-    var isLoading = true
+    var isLoading = false
     var isAlertVisible = false
     
     var isPopupVisible: Bool {
