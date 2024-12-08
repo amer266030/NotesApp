@@ -12,18 +12,31 @@ import Observation
 class PopupMgr {
     static let shared = PopupMgr()
     
-    var isLoading = false
+    var isLoading = true
     var isAlertVisible = false
     
     var isPopupVisible: Bool {
         isLoading || isAlertVisible
     }
     
+    var loadingMsg: String = ""
+    
     var alertTitle: String = ""
     var alertMsg: String = ""
     
     private init() {
         
+    }
+    
+    func showLoading(_ msg: String = "Loading...") {
+        loadingMsg = msg
+        if !isLoading {
+            isLoading = true
+        }
+    }
+    
+    func dismissLoading() {
+        isLoading = false
     }
     
     func showAlert(title: String = "Error", msg: String) {

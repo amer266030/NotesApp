@@ -20,7 +20,6 @@ class NetworkManager {
             
             return response
         } catch {
-            print("Error: \(error.localizedDescription)")
             throw error
         }
     }

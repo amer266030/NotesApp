@@ -72,7 +72,6 @@ struct FormView: View {
                 Button {
                     Task {
                         let isNoteSaved = await vm.saveNote()
-                        print(isNoteSaved)
                         if isNoteSaved { dismiss() }
                     }
                 } label: {

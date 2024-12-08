@@ -23,10 +23,7 @@ struct ContentView: View {
                         }
                         .blur(radius: popupMgr.isPopupVisible ? 4 : 0)
                     if popupMgr.isLoading {
-                        ProgressView()
-                            .controlSize(.large)
-                            .padding()
-                            .background(.regularMaterial, in: .rect(cornerRadius: 8))
+                        LoadingView(msg: $popupMgr.loadingMsg)
                     } else if popupMgr.isAlertVisible {
                         AlertView()
                     }

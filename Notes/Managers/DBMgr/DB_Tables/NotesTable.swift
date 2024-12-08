@@ -53,7 +53,6 @@ class NotesTable {
                     notes.append(note)
                 }
             }
-            print("Fetched Notes \(notes.count)")
         } catch {
             throw DBError.tableOperationError
         }
@@ -61,8 +60,6 @@ class NotesTable {
     }
 
     func insert(_ note: Note) throws {
-        print("note to insert: \(note)")
-        
         do {
             guard let db else { throw DBError.connection }
             try db.run(notesTable.insert(
@@ -73,9 +70,7 @@ class NotesTable {
                 createdAt <- note.createdAt.toISOString(),
                 updatedAt <- note.updatedAt.toISOString()
             ))
-            print("Inserted Note")
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
             throw DBError.tableOperationError
         }
     }
@@ -90,7 +85,6 @@ class NotesTable {
                 category <- note.category.rawValue,
                 updatedAt <- note.updatedAt.toISOString()
             ))
-            print("Updated Note")
         } catch {
             throw DBError.tableOperationError
         }
@@ -101,7 +95,6 @@ class NotesTable {
         do {
             guard let db else { throw DBError.connection }
             try db.run(target.delete())
-            print("Deleted Note")
         } catch {
             throw DBError.tableOperationError
         }

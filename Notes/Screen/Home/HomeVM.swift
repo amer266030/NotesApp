@@ -25,10 +25,10 @@ class HomeVM: ObservableObject {
     init() { }
     
     func fetchNotes() {
-        popupMgr.isLoading = true
+        popupMgr.showLoading()
         do {
             notes = try dbMgr.notesTable.fetch()
-            popupMgr.isLoading = false
+            popupMgr.dismissLoading()
         } catch let error {
             popupMgr.showAlert(msg: "\(error)")
         }
@@ -39,17 +39,16 @@ class HomeVM: ObservableObject {
     }
     
     func delete(_ note: Note) {
-        dbMgr.isLoading = true
+        popupMgr.showLoading()
         do {
             guard let idx = notes.firstIndex(of: note) else {
                 throw NSError()
             }
             try dbMgr.notesTable.delete(note)
             notes.remove(at: idx)
-            dbMgr.isLoading = false
+            popupMgr.dismissLoading()
         } catch let error {
-            dbMgr.isLoading = false
-            print("Error: \(error)")
+            popupMgr.showAlert(msg: "\(error)")
         }
     }
     
