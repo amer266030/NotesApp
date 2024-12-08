@@ -10,8 +10,6 @@ import SQLite
 
 class DBMgr {
     static let shared = DBMgr()
-    
-    public var isLoading = false
 
     private var connection: Connection?
 
@@ -30,8 +28,6 @@ class DBMgr {
                 create: true
             )
             let dbPath = documentsURL.appendingPathComponent("notes.sqlite3").path
-
-            // Create a connection to the file-based database
             connection = try Connection(dbPath)
         } catch {
             throw DBError.connection
