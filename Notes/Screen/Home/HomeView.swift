@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Bindable var vm = HomeVM()
+    @StateObject var vm = HomeVM()
     
     var body: some View {
         NavigationStack {
@@ -49,7 +49,9 @@ struct HomeView: View {
                         .zIndex(2)
                 }
             }
-            .onAppear { vm.fetchNotes() }
+            .onAppear {
+                vm.fetchNotes()
+            }
             .navigationTitle(vm.showDrawer ? "" : "Home")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -61,7 +63,7 @@ struct HomeView: View {
                             }
                         } label: {
                             Image(systemName: "line.3.horizontal")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(.text)
                                 .symbolEffect(.wiggle, options: .repeat(.periodic(delay: 2)))
                         }
                     }

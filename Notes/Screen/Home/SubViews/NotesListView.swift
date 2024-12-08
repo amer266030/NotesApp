@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotesListView: View {
-    @Bindable var vm: HomeVM
+    @ObservedObject var vm: HomeVM
     
     var body : some View {
         List {

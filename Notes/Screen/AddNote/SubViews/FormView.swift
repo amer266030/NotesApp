@@ -22,15 +22,41 @@ struct FormView: View {
                 }
                 .pickerStyle(.segmented)
                 
-                Text("Title")
-                TextField("Shopping", text: $vm.note.title)
+                HStack {
+                    Text("Title")
+                    Image(systemName: "staroflife.fill")
+                        .foregroundStyle(Color.red)
+                        .font(.caption2)
+                }
+                TextField("Shopping", text: $vm.note.title, onCommit: {
+                    dismissKeyboard()
+                })
                     .padding()
-                    .background(.thinMaterial, in: .rect(cornerRadius: 8))
-                Text("Note")
+                    .foregroundStyle(Color.text)
+                    .background {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(
+                                Color.background
+                                    .shadow(.drop(color: .text.opacity(0.2), radius: 2, x: 2, y: 2))
+                            )
+                    }
+                HStack {
+                    Text("Note")
+                    Image(systemName: "staroflife.fill")
+                        .foregroundStyle(Color.red)
+                        .font(.caption2)
+                }
                 TextField("Buy Apples", text: $vm.note.body, axis: .vertical)
                     .lineLimit(6, reservesSpace: true)
                     .padding()
-                    .background(.thinMaterial, in: .rect(cornerRadius: 8))
+                    .foregroundStyle(Color.text)
+                    .background {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(
+                                Color.background
+                                    .shadow(.drop(color: .text.opacity(0.2), radius: 2, x: 2, y: 2))
+                            )
+                    }
                 HStack {
                     Text("Created At:")
                     Spacer()

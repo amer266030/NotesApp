@@ -8,20 +8,30 @@
 import Observation
 import Foundation
 
-@Observable
-class HomeVM {
-    var notes: [Note] = []
+//@Observable
+class HomeVM: ObservableObject {
+    private let dbMgr = DBMgr.shared
+    private let popupMgr = PopupMgr.shared
+    
+    @Published var notes: [Note] = []
+    @Published var showDrawer = false
+    
     var filteredNotes: [(NoteCategory, [Note])] {
         Dictionary(grouping: notes, by: { $0.category })
             .map { ($0.key, $0.value) }
             .sorted { $0.0.sortPriority < $1.0.sortPriority }
     }
-    var showDrawer = false
     
     init() { }
     
     func fetchNotes() {
-        notes = MockData.shared.notes
+        popupMgr.isLoading = true
+        do {
+            notes = try dbMgr.notesTable.fetch()
+            popupMgr.isLoading = false
+        } catch let error {
+            popupMgr.showAlert(msg: "\(error)")
+        }
     }
     
     func filterNotesByCategory(_ category: NoteCategory) -> [Note] {
@@ -29,13 +39,17 @@ class HomeVM {
     }
     
     func delete(_ note: Note) {
+        dbMgr.isLoading = true
         do {
             guard let idx = notes.firstIndex(of: note) else {
                 throw NSError()
             }
+            try dbMgr.notesTable.delete(note)
             notes.remove(at: idx)
-        } catch {
-            print("Failed to delete note")
+            dbMgr.isLoading = false
+        } catch let error {
+            dbMgr.isLoading = false
+            print("Error: \(error)")
         }
     }
     

@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4D6C8A562D03C4950026D8F8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6C8A552D03C4950026D8F8 /* Alamofire */; };
+		4D6C8A5E2D03CA340026D8F8 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6C8A5D2D03CA340026D8F8 /* SQLite */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4D23D4082D0278C400DA5C53 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D6C8A5E2D03CA340026D8F8 /* SQLite in Frameworks */,
+				4D6C8A562D03C4950026D8F8 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = Notes;
 			packageProductDependencies = (
+				4D6C8A552D03C4950026D8F8 /* Alamofire */,
+				4D6C8A5D2D03CA340026D8F8 /* SQLite */,
 			);
 			productName = Notes;
 			productReference = 4D23D4082D0278C400DA5C53 /* Notes.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = 4D23D3FF2D0278C400DA5C53;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4D6C8A542D03C4950026D8F8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4D6C8A5C2D03CA340026D8F8 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4D23D4092D0278C400DA5C53 /* Products */;
 			projectDirPath = "";
@@ -339,6 +352,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4D6C8A542D03C4950026D8F8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		4D6C8A5C2D03CA340026D8F8 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4D6C8A552D03C4950026D8F8 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D6C8A542D03C4950026D8F8 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4D6C8A5D2D03CA340026D8F8 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D6C8A5C2D03CA340026D8F8 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4D23D4002D0278C400DA5C53 /* Project object */;
 }

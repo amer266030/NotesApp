@@ -47,7 +47,6 @@ struct DrawerView: View {
             .frame(width: UIScreen.width/2)
             Spacer()
         }
-        
     }
 }
 
@@ -69,12 +68,10 @@ fileprivate func avatarView() -> some View {
             .padding(.horizontal, 32)
         
         Text("John Doe")
-            .foregroundStyle(.black)
+            .foregroundStyle(.text)
             .font(.title2)
             .fontWeight(.semibold)
     }
-    
-    
 }
 
 fileprivate func linkItem(img: String, title: String) -> some View {
@@ -85,12 +82,12 @@ fileprivate func linkItem(img: String, title: String) -> some View {
             .foregroundStyle(Color.background)
             .padding(4)
             .background(.blue.gradient, in: .rect(cornerRadius: 8))
+            .font(.headline)
         
         Text(title)
             .foregroundStyle(.text)
             .contentTransition(.numericText())
     }
-    .font(.headline)
 }
 
 

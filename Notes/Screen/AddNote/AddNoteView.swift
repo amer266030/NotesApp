@@ -28,6 +28,9 @@ struct AddNoteView: View {
             .foregroundStyle(.text)
             .padding()
         }
+        .onTapGesture {
+            dismissKeyboard()
+        }
     }
 }
 
